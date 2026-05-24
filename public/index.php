@@ -5,14 +5,27 @@ error_reporting(E_ALL);
 
 require_once '../Common/Autoload.php';
 
-use Infrastructure\Adapters\Persistence\MySQL\Repository\UserRepositoryMySQL;
+use Infrastructure\Entrypoints\Web\Controllers\UserController;
 
-$repository = new UserRepositoryMySQL();
+$controller = new UserController();
 
-$users = $repository->findAll();
+$action = $_GET['action'] ?? 'index';
 
-echo '<pre>';
+switch ($action) {
 
-print_r($users);
+    case 'create':
+        $controller->create();
+        break;
 
-echo '</pre>';
+    case 'edit':
+        $controller->edit();
+        break;
+
+    case 'delete':
+        $controller->delete();
+        break;
+
+    default:
+        $controller->index();
+        break;
+}

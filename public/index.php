@@ -5,15 +5,14 @@ error_reporting(E_ALL);
 
 require_once '../Common/Autoload.php';
 
-use Infrastructure\Adapters\Persistence\MySQL\Config\Connection;
+use Infrastructure\Adapters\Persistence\MySQL\Repository\UserRepositoryMySQL;
 
-try {
+$repository = new UserRepositoryMySQL();
 
-    $connection = Connection::getConnection();
+$users = $repository->findAll();
 
-    echo 'Conexión exitosa a MySQL';
+echo '<pre>';
 
-} catch (Exception $e) {
+print_r($users);
 
-    echo $e->getMessage();
-}
+echo '</pre>';
